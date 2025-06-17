@@ -1,0 +1,49 @@
+\section{CAN-Ethernet-Gateway on Infineon AURIX TC297}
+\label{sec:can-gateway}
+
+This chapter focuses on the implementation of a CAN-Ethernet gateway.
+
+\subsection{Hardware Overview: Infineon AURIX TC297}
+% Describe the microcontroller and its relevant peripherals.
+Placeholder for text...
+
+\subsection{Software Implementation}
+% Explain the software design and key algorithms.
+Placeholder for text...
+
+\subsubsection{C Code Example}
+Here is an example of how to include a C code snippet.
+
+\begin{lstlisting}[language=C, caption={Example of a simple CAN message sending function.}, label={lst:can_send}]
+#include <stdio.h>
+
+// Define CAN message structure
+typedef struct {
+    unsigned int id;
+    unsigned char data[8];
+    unsigned char dlc; // Data Length Code
+} CAN_Message;
+
+/*
+ * @brief Sends a CAN message.
+ * @param msg Pointer to the CAN_Message to be sent.
+ */
+void send_can_message(const CAN_Message* msg) {
+    // Placeholder for actual hardware driver call
+    printf("Sending CAN message with ID: 0x%X\n", msg->id);
+    // ... implementation details for hardware registers ...
+}
+
+int main() {
+    CAN_Message my_message;
+    my_message.id = 0x123;
+    my_message.dlc = 8;
+    for (int i = 0; i < my_message.dlc; ++i) {
+        my_message.data[i] = i;
+    }
+    
+    send_can_message(&my_message);
+    
+    return 0;
+}
+\end{lstlisting}

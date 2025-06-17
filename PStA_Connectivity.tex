@@ -1,0 +1,144 @@
+\documentclass[12pt, a4paper]{article}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc} % Input encoding
+\usepackage[T1]{fontenc}    % Font encoding
+\usepackage{lmodern}        % Moderne Schriftart
+\usepackage{graphicx}       % Required for including images
+\usepackage{amsmath}        % For advanced math environments
+\usepackage{geometry}       % For page layout
+\usepackage{csquotes}       % Empfohlen für biblatex
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\usepackage{hyperref}       % For hyperlinks and PDF metadata
+\hypersetup{
+    colorlinks=false,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={My Study Work},
+    pdfauthor={Your Name},
+}
+
+%----------------------------------------------------------------------------------------
+%	Biblatex for Bibliography
+%----------------------------------------------------------------------------------------
+\usepackage[backend=biber, style=ieee, sorting=none]{biblatex}
+\addbibresource{references.bib} % Your .bib file
+
+%----------------------------------------------------------------------------------------
+%	Header & Footer
+%----------------------------------------------------------------------------------------
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\automark{section}
+\clearpairofpagestyles % Moderner Befehl statt \clearscrheadfoot
+\ihead{\headmark} % Sektionsname oben innen
+\cfoot{\pagemark} % Seitenzahl unten zentriert
+\setkomafont{pageheadfoot}{\normalfont}
+
+
+%----------------------------------------------------------------------------------------
+%	Listings for Code Integration
+%----------------------------------------------------------------------------------------
+\usepackage{listings}
+\usepackage{xcolor} % For custom colors in code
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+\lstset{style=cstyle}
+
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT START
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+    \centering
+    
+    % \includegraphics[width=0.4\textwidth]{logo_thd.png} % Sie müssen eine Logo-Datei im Ordner haben
+    
+    \vspace{2cm}
+    
+    {\Huge\bfseries Ausarbeitung eines Konzepts für Ergonomische Arbeitsplätze einer Montagelinie\par}
+    
+    \vspace{1cm}
+    
+    {\Large Studienarbeit im Rahmen des AWP \\
+    \enquote{Problemlösungen in der Praxis}\par}
+    
+    \vspace{2cm}
+    
+    {\large
+    Vorgelegt von: \\
+    \vspace{0.2cm}
+    Felix Dick \\ 
+    Matrikelnummer: 22111369 \\
+    \vspace{1.5cm}
+    
+    Betreuer: \\
+    Dipl.sc.pol.Univ., M.Sys.Eng. Roman Tizki \par} %
+    
+    \vfill % Füllt den vertikalen Raum
+    
+    {\large Deggendorf, den \today\par}
+
+\end{titlepage}
+
+
+
+\thispagestyle{empty}
+
+\newpage
+
+% --- Table of Contents ---
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\input{chapter1.tex}
+\input{chapter2.tex}
+\input{chapter3.tex}
+\input{chapter4.tex}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\newpage
+\printbibliography[title={References}]
+
+\end{document}
