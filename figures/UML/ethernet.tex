@@ -1,0 +1,25 @@
+\begin{figure}
+\centering
+\begin{sequencediagram}
+    \newthread{runEthernetLogic}{runEthernetLogic}
+    \newinst{phy}{IfxEth\_Phy\_Pef7071}
+    \newinst{eth}{sendEthernetPacket}
+    \newinst{dma}{IfxEth\_getReceiveBuffer}
+
+    \begin{call}{runEthernetLogic}{link()}{phy}{}
+    \end{call}
+
+    \begin{sdblock}{if g\_sendAliveMessage}{ }
+        \begin{call}{runEthernetLogic}{"i am alive"}{eth}{}
+        \end{call}
+    \end{sdblock}
+
+    \begin{call}{runEthernetLogic}{ }{dma}{rx\_data}
+        \begin{sdblock}{if rx\_data}{ }
+            \begin{call}{dma}{freeReceiveBuffer()}{dma}{}
+            \end{call}
+        \end{sdblock}
+    \end{call}
+\end{sequencediagram}
+\caption{Ethernet Rx/Tx Logic}
+\end{figure}

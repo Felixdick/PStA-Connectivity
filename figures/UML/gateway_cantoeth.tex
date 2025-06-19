@@ -1,0 +1,28 @@
+\begin{figure}
+\centering
+\begin{sequencediagram}
+    % Define lifelines
+    \newthread{fwd_can_eth}{forwardCanToEthernet}
+    \newinst{multican}{MultiCAN Driver}
+    \newinst{eth}{Ethernet Driver}
+
+    % Sequence of calls with corrected syntax
+    \begin{call}{fwd_can_eth}{isRxPending}{multican}{isPending}\end{call}
+
+    \begin{sdblock}{alt}{[isPending is TRUE]}
+    
+        \begin{call}{fwd_can_eth}{getPointer}{multican}{}\end{call}
+        
+        \begin{call}{fwd_can_eth}{readMessage}{multican}{rxMsg}\end{call}
+        
+        \begin{callself}{fwd_can_eth}{Construct UDP Payload from CAN data}{}\end{callself}
+
+        \begin{call}{fwd_can_eth}{sendEthernetPacket}{eth}{}\end{call}
+        
+        \begin{call}{fwd_can_eth}{clearRxPending}{multican}{}\end{call}
+        
+    \end{sdblock}
+
+\end{sequencediagram}
+\caption{CAN to Ethernet Message Forwarding}
+\end{figure}

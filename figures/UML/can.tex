@@ -1,0 +1,22 @@
+\begin{figure}
+\centering
+\begin{sequencediagram}
+    \newthread{app}{Application}
+    \newinst{tx}{transmitCanMessage}
+    \newinst{rx}{receiveCanMessage}
+    \newinst{hw}{MultiCAN HW}
+
+    \begin{call}{app}{message}{tx}{status}
+        \begin{sdblock}{while busy}{ }
+             \begin{call}{tx}{sendMessage()}{hw}{}
+             \end{call}
+        \end{sdblock}
+    \end{call}
+
+    \begin{call}{app}{ }{rx}{status, msg}
+        \begin{call}{rx}{readMessage()}{hw}{}
+        \end{call}
+    \end{call}
+\end{sequencediagram}
+\caption{CAN Rx/Tx Logic}
+\end{figure}

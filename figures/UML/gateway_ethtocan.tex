@@ -1,0 +1,40 @@
+\begin{figure}
+\centering
+\begin{sequencediagram}
+    % Define lifelines
+    \newthread{fwd_eth_can}{forwardEthernetToCan}
+    \newinst{eth_driver}{Ethernet Driver}
+    \newinst{can_driver}{MultiCAN Driver}
+
+    % Sequence of calls with corrected syntax
+    \begin{call}{fwd_eth_can}{receiveEthernetPacket}{eth_driver}{payloadLen}\end{call}
+
+    \begin{sdblock}{alt}{[payloadLen > 0]}
+        
+        %\node[note, text width=4cm] (validation_note) [right=of fwd_eth_can] 
+        %    {Internal Validation & Parsing:
+        %    \begin{itemize}
+        %        \item Check packet header and DLC
+        %        \item Extract CAN ID, Data, frame type
+        %    \end{itemize}
+        %};
+        
+        \begin{sdblock}{alt}{[frame is DATA and ID is STANDARD]}
+            
+            \begin{callself}{fwd_eth_can}{IfxMultican\_Message\_init}{canMsg}\end{callself}
+
+            % The call to the driver, which contains the loop
+            \begin{call}{fwd_eth_can}{transmitCanMessage}{can_driver}{}
+                
+                \begin{sdblock}{loop}{[while TX buffer is busy]}
+                    % The internal driver call
+                    \begin{call}{can_driver}{sendMessage}{can_driver}{status}\end{call}
+                \end{sdblock}
+                
+            \end{call}
+
+        \end{sdblock}
+    \end{sdblock}
+\end{sequencediagram}
+\caption{Ethernet to CAN Message Forwarding}
+\end{figure}
