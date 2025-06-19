@@ -1,10 +1,10 @@
 \begin{figure}
 \centering
 \begin{sequencediagram}
-    \newthread{runEthernetLogic}{runEthernetLogic}
-    \newinst{phy}{IfxEth\_Phy\_Pef7071}
+    \newthread{runEthernetLogic}{runEthernetLogic}    
     \newinst{eth}{sendEthernetPacket}
-    \newinst{dma}{IfxEth\_getReceiveBuffer}
+    \newinst{dma}{getReceiveBuffer}
+    \newinst{phy}{Phy\_Pef7071}
 
     \begin{call}{runEthernetLogic}{link()}{phy}{}
     \end{call}
