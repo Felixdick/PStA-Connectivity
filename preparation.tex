@@ -1,0 +1,22 @@
+\section{Preparation Part: Workstation Network Structure Analysis }
+\label{sec:preparation
+
+Before initiating synchronization procedures, an extensive analysis of the local workstation network was required. The analysis aimed at revealing all devices within the 192.168.0.0/24 subnet, collecting relevant IP and MAC addresses essential for the ensuing Precision Time Protocol (PTP) configuration. \\\\
+The first step was to use \textbf{ifconfig}, which revealed the following configuration details:
+\begin{itemize}
+\item  Host IP: 192.168.0.227
+\item Host MAC: 00-13-3B-B0-10-B5
+ \end{itemize}
+Additionally, Oracle VM VirtualBox hosted a Linux virtual machine, which was verified for proper connectivity within the network:
+\begin{itemize}
+\item VM IP: 192.168.0.28
+\item VM MAC: 08-00-27-8D-C8-A2
+\end{itemize}
+Zenmap was used to run the network scan with nmap. Conducting Ping and Intense scans within the subnet revealed several accessible devices.
+\begin{itemize}
+\item 192.168.0.173 (ports 88, 443, 888; Webcam)
+\item 192.168.0.226 (ports 1309, 3389; Workstation)
+\item 192.168.0.49 (port 80; Media Gateway)
+\end{itemize}
+
+%To Do: Evtl. Screenshots einfügen; Nochmal überarbeiten (War das erste was ich gemacht habe und passt nicht perfekt zum Rest der Arbeit)
