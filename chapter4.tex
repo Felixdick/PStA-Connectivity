@@ -31,7 +31,7 @@ A classical CAN data frame carries an 11- or 29-bit identifier, a data length co
 \subsection{Software Implementation}
 % Explain the software design and key algorithms.
 The implementation starts with configuring the necessary hardware peripherals on the TriCore board, such as CAN and Ethernet modules. This is accomplished by using an initialization routine (Listing 1).
-\begin{lstlisting}[language=C, caption={Initialization of modules (Cpu0_Main.c)}, label={lst:ini_module}]
+\begin{lstlisting}[language=C, caption={Initialization of modules (Cpu0\_Main.c)}, label={lst:ini_module}]
 void initModules(void)
 {
     /* Disable watchdog timers for stable operation */
