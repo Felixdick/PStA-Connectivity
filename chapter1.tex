@@ -20,7 +20,19 @@ Wireshark is a widely used open-source network protocol analyser. Its primary pu
 
 \subsection{Task Report}
 The task utilized the ANDi tool in combination with Wireshark to establish communication through loopback testing. To achieve this, a stimulation and a logging adapter had to be selected. The stimulation adapter should transmit frames or signals, while the logging adapter is used to receive incoming packets.\\\\
-After running a loopback script included in the task the packages were captured as expected, but only after selecting the right adapter for both. The layer 2 frame was received as expected and could be traced in Wireshark.\\\\
+After running a loopback script included in the task the packages were captured as expected, but only after selecting the right adapter for both (Figure 1). The layer 2 frame was received as expected (Figure 2) and could be traced in Wireshark.\\\\
+\begin{figure}[h]
+    \centering
+     \includegraphics[width=0.8\textwidth]{figures/pictures/adaptersloopback.png}
+    \caption{Selection of the same adapter for Logging and Stimulation.}
+    \label{fig:mediagateway_setup}
+\end{figure}
+\begin{figure}[h]
+    \centering
+     \includegraphics[width=0.8\textwidth]{figures/pictures/loopbackreceived.png}
+    \caption{Received frame from loopback.}
+    \label{fig:mediagateway_setup}
+\end{figure}
 The next step was to create 2 distinct scripts, to distinguish between sending and receiving frames. Additionally the frames should be more distinguishable from another, so the requirement was to give each frame an identifier corresponding to the order they were sent in with 20 frames being sent over the course of 20 seconds.\\\\
 After achieving this, subsequent task were to test further ANDi tools like SendPing and Burst Sending and analyze the traffic: Send Ping sends one request and awaits a reply while Burst Sending sends multiple requests in a short time without waiting for a reply first. Both operate on Layer 3 and use Ethernet frames on Layer 2 with the key difference being the number and timing of packets sent. \\\\
 After changing the communication from Layer 2 (MAC address) to a layer 3 (IP address)  connection, the data frames change. They reveal more information about the connection, TTL, ports, and the checksum of the packages. 
