@@ -6,10 +6,10 @@ This chapter introduces the initial setup and basic testing procedures.
 \subsection{Introduction to the ANDI-tool}
 % Describe the ANDI-tool, its purpose, and main features.
 ANDi (Automotive Network Diagnoser ) is a cross-platform test and analysis tool for automotive electronic networks, designed to support software and ECU development at every stage. Its core functions are to simulate network traffic, execute component tests and analyse the resulting data\cite{technica}. It supports simulation, monitoring, and analysis of various network protocols, including CAN, LIN, FlexRay, and Ethernet (BroadR-Reach).
-
+   
 \subsection{Introduction to Wireshark}
 Wireshark is a widely used open-source network protocol analyser. Its primary purpose is to capture and inspect data packets travelling across a network, enabling detailed analysis of network traffic. Key features include real-time packet capture, deep inspection of hundreds of protocols, filtering capabilities, and the ability to reconstruct data streams. 
-
+   
 \subsection{Loopback Test Procedure}
 % Explain the steps to perform a loopback test. You can use an itemize or enumerate environment.
 \begin{itemize}
@@ -31,7 +31,7 @@ After running a loopback script included in the task the packages were captured 
     \centering
      \includegraphics[width=0.8\textwidth]{figures/pictures/loopbackreceived.png}
     \caption{Received frame from loopback.}
-    \label{fig:mediagateway_setup}
+    \label{fig:mediagateway_setup2}
 \end{figure}
 The next step was to create 2 distinct scripts, to distinguish between sending and receiving frames. Additionally the frames should be more distinguishable from another, so the requirement was to give each frame an identifier corresponding to the order they were sent in with 20 frames being sent over the course of 20 seconds.\\\\
 After achieving this, subsequent task were to test further ANDi tools like SendPing and Burst Sending and analyze the traffic: Send Ping sends one request and awaits a reply while Burst Sending sends multiple requests in a short time without waiting for a reply first. Both operate on Layer 3 and use Ethernet frames on Layer 2 with the key difference being the number and timing of packets sent. \\\\
