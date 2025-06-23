@@ -1,5 +1,5 @@
 \newpage 
-\section{Part 4: CAN-Ethernet-Gateway on Infineon \\AURIX TC297}\label{sec:can-gateway}
+\section{CAN-Ethernet-Gateway on Infineon AURIX TC297}\label{sec:can-gateway}
 
 This chapter focuses on the implementation of a CAN-Ethernet gateway.
 
@@ -49,8 +49,8 @@ void initModules(void)
     initGateway();
 }
 \end{lstlisting}
-This initialization function disables watchdog timers to ensure uninterrupted operation and sets up peripherals necessary for the gateway’s functionality, such as LEDs for visual debugging and status indication. It initializes the Multican and Ethernet modules, sets up timing mechanisms for periodic tasks, and prepares the gateway functionality.\\\\
-The gateway logic is executed periodically within the main execution loop through the function \verb|runGateway()|. This function orchestrates the two principal operations: the first function \verb|forwardCanToEthernet()| handles translating CAN messages to Ethernet packets. The converting of CAN messages into Ethernet frames is shown in Listing 2.
+This initialization function disables watchdog timers to ensure uninterrupted operation and sets up peripherals necessary for the gateway’s functionality, such as LEDs for visual debugging and status indication. It initializes the Multican and Ethernet modules, the respective UML diagrams in appendix are \autoref{uml:can} and \autoref{uml:eth}, sets up timing mechanisms for periodic tasks, and prepares the gateway functionality.\\\\
+The gateway logic is executed periodically within the main execution loop through the function \verb|runGateway()|. This function orchestrates the two principal operations: the first function \verb|forwardCanToEthernet()| handles translating CAN messages to Ethernet packets. The converting of CAN messages into Ethernet frames is shown in Listing 2. The respective functionality is also pictured in an UML sequence diagramm in the appendix(\autoref{uml:cantoeth}).
 \begin{lstlisting}[language=C, caption={CAN to Ethernet message translation (Gateway.c)}, label={lst:can_to_eth}]
 void forwardCanToEthernet(void)
 {
@@ -99,16 +99,14 @@ void forwardCanToEthernet(void)
         }
 
         sendEthernetPacket(udpPayload, 9 + dlc);
-
          //FIX: Manually clear the Receive Pending flag.
-         //This is the crucial step to prevent the same message from being read again.
-         
+         //This is the crucial step to prevent the same message from being read again.         
         IfxMultican_Can_MsgObj_clearRxPending(rxMsgObjHandle);
     }
 }
 \end{lstlisting}
 When a CAN message is received, this function checks for pending messages, reads the data into a structured format, and encapsulates it into a UDP packet. Metadata including the CAN identifier, message length, and payload are meticulously formatted. This encapsulation is critical for ensuring accurate data representation over Ethernet and allows diagnostic and monitoring tools to interpret the data correctly.\\\\
-The implementation of the second operation \verb|forwardEthernetToCan()|, that handles translating Ethernet packets to CAN messages, is implemented as shown in Listing 3.
+The implementation of the second operation \verb|forwardEthernetToCan()|, that handles translating Ethernet packets to CAN messages, is implemented as shown in Listing 3, the functionality is shown in the sequencediagram in \autoref{uml:ethtocan}.
 
  
 \begin{lstlisting}[language=C, caption={Ethernet to CAN message translation (Gateway.c)}, label={lst:eth_to_can}]
@@ -123,14 +121,12 @@ void forwardEthernetToCan(void)
         if (payloadLen < 9 || ethPayload[0] != 0x01) { return; }
         uint8 dlc = ethPayload[8];
         if (dlc > 8 || payloadLen < (9 + dlc)) { return; }
-
         // Packet parsing
         uint32 can_id = ((uint32)ethPayload[2]) | ((uint32)ethPayload[3] << 8) | ((uint32)ethPayload[4] << 16) | ((uint32)ethPayload[5] << 24);
         boolean id_type = ethPayload[6];
         boolean frame_type = ethPayload[7];
-
         // Use the proven high-level transmit function.
-        // This will only forward standard data frames as per the TX message object's initial configuration.
+        // This will only forward standard data frames
         if (frame_type == 0 && id_type == FALSE)
         {
             uint32 dataLow = 0;
@@ -225,8 +221,3 @@ In Figure 5, Wireshark records multiple UDP packets originating from a PC (192.1
 \end{figure}\\
 Figure 6 shows the reverse communication path. Here, the CAN message with ID \verb|0x200| and data payload corresponding to the ASCII string “CANTOUDP” is transmitted from the CAN bus. Wireshark captures its Ethernet encapsulation, showing correct transmission from the microcontroller to a broadcast destination (MAC: FF:FF:FF:FF:FF:FF) on UDP port 40000. The embedded function \verb|forwardCanToEthernet()| has successfully serialized the CAN frame into a valid UDP packet and injected it into the Ethernet stack.\\\\
 Together, these bidirectional traces confirm that both gateway directions—Ethernet to CAN and CAN to Ethernet—function as intended. The protocol is correctly formed, hardware peripherals are synchronized, and application-layer behavior is predictable and reliable. This validation confirms that the goals of the project were achieved and a fully operational CAN-Ethernet gateway with UDP support was realized on the Infineon TriCore platform.
-
-\include{figures/UML/ethernet}
-\include{figures/UML/can.tex}
-\include{figures/UML/gateway_cantoeth.tex}
-\include{figures/UML/gateway_ethtocan.tex}

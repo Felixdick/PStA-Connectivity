@@ -11,6 +11,7 @@
 \usepackage{amsmath}        % For advanced math environments
 \usepackage{geometry}       % For page layout
 \usepackage{csquotes}       % Empfohlen für biblatex
+\usepackage{adjustbox}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
 \usepackage{pgf-umlsd}
@@ -141,11 +142,25 @@
 \input{chapter3.tex}
 \input{chapter4.tex}
 
+
+%----------------------------------------------------------------------------------------
+%	APPENDIX
+%----------------------------------------------------------------------------------------
+\newpage
+\appendix
+\section{UML Sequence Diagrams}
+\label{sec:appendix_uml}
+
+% Add all the diagrams you want to move to the appendix here.
+% I've included all four from the end of your chapter 4 as an example.
+\include{figures/UML/ethernet}
+\include{figures/UML/can}
+\include{figures/UML/gateway_cantoeth}
+\include{figures/UML/gateway_ethtocan}
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
 \newpage
 \printbibliography[title={References}]
-
 \end{document}
